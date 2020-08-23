@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Container, Row, Col, Image, Form, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Common from './Common.js';
+// import { fetchAPI } from './actions';
 import logo from './logo.png';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-function App() {
+function App() { 
+  const [arrayGifs, setArray] = useState([]);
+  const [filterBy, setFilter] = useState("");
+
+  useEffect(() => {
+    fetchAPI(Common.Config.UrlTrending);
+  }, []);
+
+  const fetchAPI = (url) => {
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data);
+      setArray(data.data);
+    })
+    .catch( error => console.error(error));
+  };
+
+  const handleClick = () => {
+    const input = document.getElementById("inputValue");
+    setFilter(input.value);
+    fetchAPI(Common.Config.UrlSearch + input.value);
+    input.value = "";
+  }
+
   return (
     <Container fluid>
       <Row className="App-header">
-        <Col  md={{ span: 2, offset: 1 }}>
+        <Col  md={{ span: 2, offset: 1 }} className="App-text">
           Top gifs
         </Col>
       </Row>
@@ -19,14 +46,39 @@ function App() {
       </Row>
       <Row>
         <Col sm={{ span: 4, offset: 4}} md={{ span: 4, offset: 4}}>
-          <Form.Control placeholder="Escribe algo..." />
+          <Form.Control placeholder="Escribe algo..." id="inputValue" />
         </Col>
         <Col className="pl-0">
-          <Button sm md={ 2 } className="m-0" variant="primary">Buscar</Button>
+          <Button sm={2} md={ 2 } className="m-0" variant="primary" onClick={handleClick}>Buscar</Button>
         </Col>
+      </Row>
+      <Row>
+        { filterBy !== "" 
+          ? <p className="App-text m-2"> Resultados para "{filterBy}" </p>
+          : <p className="App-text m-2"> Top Gifs </p>
+        }
+      </Row>
+      <Row>
+        { arrayGifs.length > 0 && arrayGifs.map( item =>
+           <Col xs={6} sm={4} md={4} lg={2} className="p-0 pl-1 pb-1" key={item.id}>
+              <Image src={item.images.downsized_medium.url} className="Image-gif"/>
+            </Col>
+          )
+        }
       </Row>
     </Container>
   );
 }
 
-export default App;
+// export default App;
+const mapStateToProps = state => {
+  return {
+    //propiedades
+  };
+};
+
+const mapDispatchToProps = {
+  // fetchAPI,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
