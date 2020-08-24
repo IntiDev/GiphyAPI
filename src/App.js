@@ -21,12 +21,11 @@ function App() {
     })
     .catch( error => console.error(error));
   };
-
+ 
   const handleClick = () => {
     const input = document.getElementById("inputValue");
     setFilter(input.value);
     fetchAPI(Common.Config.UrlSearch + input.value);
-    input.value = "";
   }
 
   return (
@@ -37,16 +36,16 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col sm={{ span: 2, offset: 5 }} md={{ span: 2, offset: 5 }}>
+        <Col xs={{ span: 6, offset: 3 }} sm={{ span: 4, offset: 4 }} md={{ span: 2, offset: 5 }}>
           <Image className="App-logo p-3" src={logo} fluid alt="logo" />
         </Col>
       </Row>
       <Row>
-        <Col sm={{ span: 4, offset: 4}} md={{ span: 4, offset: 4}}>
-          <Form.Control placeholder="Escribe algo..." id="inputValue" />
+        <Col xs={{ span: 7, offset: 1 }} sm={{ span: 4, offset: 4}} md={{ span: 4, offset: 4}} lg={{ span: 3, offset: 4}}>
+          <Form.Control id="inputValue" />
         </Col>
         <Col className="pl-0">
-          <Button sm={2} md={ 2 } className="m-0" variant="primary" onClick={handleClick}>Buscar</Button>
+          <Button xs={3} sm={2} md={2} lg={2} className="m-0" variant="primary" onClick={handleClick}>Buscar</Button>
         </Col>
       </Row>
       <Row>
@@ -57,7 +56,7 @@ function App() {
       </Row>
       <Row>
         { arrayGifs.length > 0 && arrayGifs.map( item =>
-           <Col xs={6} sm={4} md={4} lg={2} className="p-0 pl-1 pb-1" key={item.id}>
+           <Col xs={6} sm={4} md={4} lg={2} className="p-1" key={item.id}>
               <Image src={item.images.downsized_medium.url} className="Image-gif"/>
             </Col>
           )
