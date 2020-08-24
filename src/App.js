@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Image, Form, Button } from 'react-bootstrap';
 import Common from './Common.js';
 import logo from './logo.png';
+import logoGiphy from './PoweredbyGiphy.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -61,6 +62,11 @@ function App() {
             </Col>
           )
         }
+      </Row>
+      <Row >
+        <Col sm={{ span: 2, offset: 5}} md={{ span: 2, offset: 5}} lg={{ span: 2, offset: 5}} className="mt-3">
+          <Image src={logoGiphy} fluid/>
+        </Col>
       </Row>
     </Container>
   );
