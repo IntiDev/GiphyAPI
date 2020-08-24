@@ -6,7 +6,16 @@
 .App-header {
   background-color: #072B31;
   color: white;
-  font-size: 20px;
   height: 40px;
   padding: 0 5px;
+}
+
+.App-text {
+  font-size: 20px;
+}
+
+.Image-gif {
+  width: 100%;
+  min-height: 140px;
+  max-height: 140px;
 }
