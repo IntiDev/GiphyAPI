@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { Container, Row, Col, Image, Form, Button } from 'react-bootstrap';
 import Common from './Common.js';
-// import { fetchAPI } from './actions';
 import logo from './logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -19,7 +17,6 @@ function App() {
     fetch(url)
     .then(response => response.json())
     .then(data => {
-      // console.log(data);
       setArray(data.data);
     })
     .catch( error => console.error(error));
@@ -70,15 +67,4 @@ function App() {
   );
 }
 
-// export default App;
-const mapStateToProps = state => {
-  return {
-    //propiedades
-  };
-};
-
-const mapDispatchToProps = {
-  // fetchAPI,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
